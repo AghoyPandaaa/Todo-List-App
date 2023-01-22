@@ -19,7 +19,7 @@ task *addNewTask(){
 void removeTask(){
     displayTaskTitles(head);
     printf("Which one should be deleted? : ");
-    int selectedTaskToDelete; scanf("%d",&selectedTaskToDelete);
+    int selectedTaskToDelete = getNumericInput();
     deleteTask(&head, selectedTaskToDelete);
     fixTasksNum(head);
 
@@ -35,8 +35,8 @@ task *searchTasks(int taskNum){
 void editTask(){
     displayTaskTitles(head);
     printf("Which one needs to be edited? : ");
-    int selectedTaskNumber; scanf("%d", &selectedTaskNumber);
-    task *selectedTask = (searchTaskByNumber(head, selectedTaskNumber));
+    int selectedTaskNumber = getNumericInput();
+    task *selectedTask = (searchTasks(selectedTaskNumber));
     editTaskData(selectedTask);
     displayFullTaskList(head);
 }

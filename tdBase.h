@@ -2,12 +2,26 @@
 // Created by AghoyPandaaa on 1/19/2023.
 //
 #include <stdio.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #ifndef TDY_TDBASE_H
 #define TDY_TDBASE_H
 
 #endif //TDY_TDBASE_H
+
+int getNumericInput()
+{
+    char c = getchar();
+    int convertedInput = 0;
+    while(c != EOF && isdigit(c)) {
+        convertedInput *= 10;
+        convertedInput += (c - '0');
+        c = getchar();
+    }
+    return convertedInput;
+}
+
 typedef struct taskData task;
 //Linked-List Node Structure
 struct taskData{
@@ -123,7 +137,6 @@ task *searchTaskByNumber(task *head , int desiredTaskNumber){
     task *traversPointer = head;
     if(traversPointer == NULL)
         printf("No tasks added.");
-    else
         while(traversPointer != NULL) {
             if (traversPointer->taskNumber == desiredTaskNumber) {
                 printf("\n\n\%d) %s  |  info : %s  | Dead Line : %s  . \n", traversPointer->taskNumber, traversPointer->title , traversPointer->description, traversPointer->deadLine  );
@@ -165,17 +178,26 @@ void editTaskData(task *selectedTask){
     char newDescription[101];
     char newDeadLine[11];
     printf("\n\n\n To edit tasks title, enter 1 \n To edit tasks description, enter 2\n To edit tasks deadline, enter 3: \n\n");
-    int editMode; scanf("%d",&editMode);
+    int editMode = getNumericInput();
     if(editMode == 1){
-        fgets(newTitle,50,stdin);
+        printf("Enter new title for the task : \n");
+        int i ;
+        for (i = 0 ; (newTitle[i]= getchar()) != '\n' ; i++){}
+        newTitle[i] = '\0';
         strcpy(selectedTask->title , newTitle);
     }
     else if(editMode == 2){
-        fgets(newDescription, 100, stdin);
-        strcpy(selectedTask->description, newDescription);
+        printf("Enter new description for the task : \n");
+        int j ;
+        for (j = 0 ; (newDescription[j]= getchar()) != '\n' ; j++){}
+        newDescription[j] = '\0';
+        strcpy(selectedTask->description , newDescription);
     }
     else if(editMode == 3){
-        fgets(newDeadLine, 10,stdin);
+        printf("Enter new deadline for the task : \n");
+        int k ;
+        for (k = 0 ; (newDeadLine[k]= getchar()) != '\n' ; k++){}
+        newDeadLine[k] = '\0';
         strcpy(selectedTask->deadLine , newDeadLine);
     }
     else
