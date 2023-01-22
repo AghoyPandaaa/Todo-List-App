@@ -3,7 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
-#include "tdBase.h"
+#include "tdLinkedList.h"
 #ifndef TDY_TDFUNCS_H
 #define TDY_TDFUNCS_H
 
@@ -17,8 +17,9 @@ task *addNewTask(){
 
 
 void removeTask(){
+    system("cls");
     displayTaskTitles(head);
-    printf("Which one should be deleted? : ");
+    printf("\n\nWhich one should be deleted? : ");
     int selectedTaskToDelete = getNumericInput();
     deleteTask(&head, selectedTaskToDelete);
     fixTasksNum(head);
@@ -34,7 +35,7 @@ task *searchTasks(int taskNum){
 
 void editTask(){
     displayTaskTitles(head);
-    printf("Which one needs to be edited? : ");
+    printf("\n\nWhich one needs to be edited? : ");
     int selectedTaskNumber = getNumericInput();
     task *selectedTask = (searchTasks(selectedTaskNumber));
     editTaskData(selectedTask);
@@ -44,14 +45,14 @@ void editTask(){
 void prioritizeTasks(){
     int numberOfTasks = fixTasksNum(head);
     displayTaskTitles(head);
-    printf("Which tasks position should be changed? : ");
+    printf("\n\nWhich tasks position should be changed? : \n");
     int selectedTaskNumber = getNumericInput();
-    task *selectedTask = searchTasks(selectedTaskNumber);
-    printf("What position should it be replaced? : ");
+    task *selectedTask = searchTaskByNumber(head,selectedTaskNumber);
+    printf("\n\nWhat position should it be replaced? : \n");
     int newPos = getNumericInput();
 
-    if (newPos - 1 >= getLastNode(head)->next)
-        printf("Selected number doesn't exist. Try again.");
+    if (newPos - 1 >= getLastNode(head)->taskNumber)
+        printf("\n\nSelected number doesn't exist. Try again.");
 
     if(newPos == selectedTask->taskNumber)
         return;
@@ -76,7 +77,7 @@ void prioritizeTasks(){
         selectedTask->next = head;
         head = selectedTask;
     }
-    else if(posHolder == getLastNode(head)->next){
+    else if(posHolder == getLastNode(head)->taskNumber){
         getLastNode(head)->next = selectedTask;
         selectedTask->next = NULL;
     }

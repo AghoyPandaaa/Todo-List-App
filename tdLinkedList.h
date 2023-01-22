@@ -47,6 +47,7 @@ int fixTasksNum(task *head){
 }
 //Create a new node for linked list
 task *newTask (){
+    system("cls");
  task *newTaskNode = (task *)malloc(sizeof(task));
  printf("Enter a title for task (max 50 characters) : \n");
  gets(newTaskNode->title);
@@ -95,9 +96,10 @@ task *insertToNPosition(int n, task *newTaskNode, task *head){
 void displayFullTaskList(task *head){
     task *traversPointer = head;
     if(traversPointer == NULL)
-        printf("There are no added tasks yet. Please add some and try again.  \n\n\n");
+        printf("\n\nThere are no added tasks yet. Please add some and try again.  \n\n\n");
+
     else{
-        printf("All Tasks List : \n\n");
+        printf("\n\nAll Tasks List : \n\n");
         while(traversPointer != NULL){
             printf("%d) %s  |  info : %s  | Dead Line : %s  . \n", traversPointer->taskNumber, traversPointer->title , traversPointer->description, traversPointer->deadLine  );
             traversPointer = traversPointer->next;
@@ -107,16 +109,20 @@ void displayFullTaskList(task *head){
 }
 
 void displayTaskTitles(task *head){
+    system("cls");
     task *traversPointer = head;
-    if(traversPointer == NULL)
+    if(traversPointer == NULL) {
         printf("There are no added tasks yet. Please add some and try again.  \n\n\n");
-    else{
+        system("pause");
+    }
+        else{
         printf("All Tasks Titles : \n\n");
         while(traversPointer != NULL){
             printf("%d) %s   \n", traversPointer->taskNumber, traversPointer->title);
             traversPointer = traversPointer->next;
         }
     }
+    system("pause");
 
 }
 task *searchTaskByNumber(task *head , int desiredTaskNumber){
