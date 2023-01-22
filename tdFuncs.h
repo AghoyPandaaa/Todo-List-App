@@ -44,18 +44,22 @@ void editTask(){
 void prioritizeTasks(){
     int numberOfTasks = fixTasksNum(head);
     displayTaskTitles(head);
-    printf("Enter the number of task you want to change its position : ");
-    int selectedTaskNumber; scanf("%d", &selectedTaskNumber);
-    task *selectedTask = searchTaskByNumber(head, selectedTaskNumber);
-    printf("\n\nEnter new postition of the task : ");
-    int newPos; scanf("%d", &newPos);
-    if(newPos > numberOfTasks)
-        printf("There are only %d tasks, try again...\n\n\n",numberOfTasks);
+    printf("Which tasks position should be changed? : ");
+    int selectedTaskNumber = getNumericInput();
+    task *selectedTask = searchTasks(selectedTaskNumber);
+    printf("What position should it be replaced? : ");
+    int newPos = getNumericInput();
+
+    if (newPos - 1 >= getLastNode(head)->next)
+        printf("Selected number doesn't exist. Try again.");
+
     if(newPos == selectedTask->taskNumber)
         return;
+
     task *traversPointer = head;
     task *posPointer = head;
     int posHolder = newPos;
+
     if(newPos > selectedTask->taskNumber)
         newPos++;
 
@@ -64,23 +68,36 @@ void prioritizeTasks(){
     else{
         while(traversPointer->next->taskNumber != selectedTask->taskNumber)
             traversPointer = traversPointer->next;
+
         traversPointer->next = traversPointer->next->next;
     }
+
     if(posHolder == 1){
         selectedTask->next = head;
         head = selectedTask;
     }
-    else if(posHolder == getLastNode(head)->taskNumber){
+    else if(posHolder == getLastNode(head)->next){
         getLastNode(head)->next = selectedTask;
         selectedTask->next = NULL;
-
     }
     else{
         while(posPointer->next->taskNumber != newPos)
             posPointer = posPointer->next;
+
         selectedTask->next = posPointer->next;
+        posPointer->next = selectedTask;
     }
     fixTasksNum(head);
 }
 
+
+void splashScreen(){
+    printf("\n\n\n\n\n");
+    printf("|-----------------------------------------------------------------------|\n");
+    printf("|================= Todo List Simple App=================================|\n");
+    printf("|-----------------------------------------------------------------------|\n");
+    printf("\n\n\n\n\n\n");
+    printf("|---------------------------   Welcome     -----------------------------|\n\n\n\n");
+    system("pause");
+}
 

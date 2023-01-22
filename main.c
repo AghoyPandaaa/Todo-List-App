@@ -4,13 +4,16 @@
 
 
 int main() {
-    head = addNewTask();
-    head = addNewTask();
-    head = addNewTask();
-    fixTasksNum(head);
-    displayTaskTitles(head);
-    fixTasksNum(head);
-    editTask();
+    splashScreen();
+
+    system("cls");
+
+    printf("\nEnter The Number Of Option You Want To Use");
+    printf("\n\n\n");
+    printf("1. Display List Of Tasks With All Info");
+    printf("\n2. Add New Task");
+    printf("\n3. Remove A Task From List By Its Number");
+    printf("\n4. Edit A Part Of Added Task");
 
 
 

@@ -49,23 +49,11 @@ int fixTasksNum(task *head){
 task *newTask (){
  task *newTaskNode = (task *)malloc(sizeof(task));
  printf("Enter a title for task (max 50 characters) : \n");
-char title[51];
-int i;
-for(i = 0 ; (title[i]= getchar()) != '\n' ; i++){}
-title[i] = '\0';
-strcpy(newTaskNode->title , title);
+ gets(newTaskNode->title);
  printf("Enter a description for the task (max 100 characters) : \n");
-    char description[101];
-    int j;
-    for(j = 0 ; (description[j]= getchar()) != '\n' ; j++){}
-    description[j] = '\0';
-    strcpy(newTaskNode->description , description);
+ gets(newTaskNode->description);
  printf("Enter a deadline date in YYYY/MM/DD form : \n");
-    char deadLine[11];
-    int k;
-    for(k = 0 ; (title[k]= getchar()) != '\n' ; i++){}
-    deadLine[k] = '\0';
-    strcpy(newTaskNode->deadLine , deadLine);
+ gets(newTaskNode->deadLine);
  newTaskNode->taskNumber = 0;
  newTaskNode->next = NULL;
 
@@ -172,43 +160,33 @@ void deleteTask(task** head, int selectedTaskNumber){
     prev->next = traversPointer->next;
     free(traversPointer);
 }
-//Edit a task
-void editTaskData(task *selectedTask){
+
+void editTaskData(task *selectedTask) {
     char newTitle[51];
     char newDescription[101];
     char newDeadLine[11];
     printf("\n\n\n To edit tasks title, enter 1 \n To edit tasks description, enter 2\n To edit tasks deadline, enter 3: \n\n");
     int editMode = getNumericInput();
-    if(editMode == 1){
-        printf("Enter new title for the task : \n");
-        int i ;
-        for (i = 0 ; (newTitle[i]= getchar()) != '\n' ; i++){}
-        newTitle[i] = '\0';
-        strcpy(selectedTask->title , newTitle);
+    switch(editMode){
+        case 1:
+            printf("Enter new title for the task : ");
+            gets(newTitle);
+            strcpy(selectedTask->title , newTitle);
+            break;
+        case 2:
+            printf("Enter new description for the task : ");
+            gets(newDescription);
+            strcpy(selectedTask->description , newDescription);
+            break;
+        case 3:
+            printf("Enter new deadline for the task : ");
+            gets(newDeadLine);
+            strcpy(selectedTask->deadLine , newDeadLine);
+            break;
+        default:
+            printf("Invalid option. Try again...");
     }
-    else if(editMode == 2){
-        printf("Enter new description for the task : \n");
-        int j ;
-        for (j = 0 ; (newDescription[j]= getchar()) != '\n' ; j++){}
-        newDescription[j] = '\0';
-        strcpy(selectedTask->description , newDescription);
-    }
-    else if(editMode == 3){
-        printf("Enter new deadline for the task : \n");
-        int k ;
-        for (k = 0 ; (newDeadLine[k]= getchar()) != '\n' ; k++){}
-        newDeadLine[k] = '\0';
-        strcpy(selectedTask->deadLine , newDeadLine);
-    }
-    else
-    {
-        printf("The selected number wasn't in the options list.");
-    }
-
-
-
 }
-
 task *getLastNode(task *head){
     task *traversPointer = head;
     while((traversPointer != NULL)&&(traversPointer->next != NULL))
